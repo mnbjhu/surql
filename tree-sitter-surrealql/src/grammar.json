@@ -1,0 +1,459 @@
+{
+  "name": "surrealql",
+  "rules": {
+    "source_file": {
+      "type": "REPEAT",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_statement"
+      }
+    },
+    "_statement": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "create_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "select_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "update_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "delete_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "let_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "define_statement"
+        }
+      ]
+    },
+    "create_token": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "CREATE"
+        },
+        {
+          "type": "STRING",
+          "value": "create"
+        }
+      ]
+    },
+    "select_token": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "SELECT"
+        },
+        {
+          "type": "STRING",
+          "value": "select"
+        }
+      ]
+    },
+    "update_token": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "UPDATE"
+        },
+        {
+          "type": "STRING",
+          "value": "update"
+        }
+      ]
+    },
+    "delete_token": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "DELETE"
+        },
+        {
+          "type": "STRING",
+          "value": "delete"
+        }
+      ]
+    },
+    "content_token": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "CONTENT"
+        },
+        {
+          "type": "STRING",
+          "value": "content"
+        }
+      ]
+    },
+    "define_token": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "DEFINE"
+        },
+        {
+          "type": "STRING",
+          "value": "define"
+        }
+      ]
+    },
+    "field_token": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "FIELD"
+        },
+        {
+          "type": "STRING",
+          "value": "field"
+        }
+      ]
+    },
+    "table_token": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "TABLE"
+        },
+        {
+          "type": "STRING",
+          "value": "table"
+        }
+      ]
+    },
+    "_on_token": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "ON"
+        },
+        {
+          "type": "STRING",
+          "value": "on"
+        }
+      ]
+    },
+    "on_table_token": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "ON_TABLE"
+        },
+        {
+          "type": "STRING",
+          "value": "on_table"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_on_token"
+        }
+      ]
+    },
+    "from_token": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "FROM"
+        },
+        {
+          "type": "STRING",
+          "value": "from"
+        }
+      ]
+    },
+    "let_token": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "LET"
+        },
+        {
+          "type": "STRING",
+          "value": "let"
+        }
+      ]
+    },
+    "define_statement": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "define_table_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "define_field_statement"
+        }
+      ]
+    },
+    "define_table_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "define_token"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "table_token"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "table_def"
+        }
+      ]
+    },
+    "define_field_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "define_token"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "field_token"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "field_def"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "on_table_token"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "table_def"
+        }
+      ]
+    },
+    "create_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "create_token"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "table_name"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "content_token"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "object"
+        }
+      ]
+    },
+    "select_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "select_token"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "field_name"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "from_token"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "table_name"
+        }
+      ]
+    },
+    "update_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "update_token"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "table_name"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "content_token"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "object"
+        }
+      ]
+    },
+    "delete_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "delete_token"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "table_name"
+        }
+      ]
+    },
+    "let_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "let_token"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "variable_name"
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "SYMBOL",
+          "name": "value"
+        }
+      ]
+    },
+    "table_name": {
+      "type": "PATTERN",
+      "value": "[a-zA-Z0-9]+"
+    },
+    "field_name": {
+      "type": "PATTERN",
+      "value": "[a-zA-Z0-9]+"
+    },
+    "table_def": {
+      "type": "PATTERN",
+      "value": "[a-zA-Z0-9]+"
+    },
+    "field_def": {
+      "type": "PATTERN",
+      "value": "[a-zA-Z0-9]+"
+    },
+    "object": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "field"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    },
+    "field": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "string"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "value"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": ","
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "string"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "number"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "object"
+        }
+      ]
+    },
+    "string": {
+      "type": "PATTERN",
+      "value": "\"[^\"]*\""
+    },
+    "number": {
+      "type": "PATTERN",
+      "value": "[0-9]+"
+    },
+    "variable_name": {
+      "type": "PATTERN",
+      "value": "\\$[a-zA-Z0-9]+"
+    }
+  },
+  "extras": [
+    {
+      "type": "PATTERN",
+      "value": "\\s"
+    }
+  ],
+  "conflicts": [],
+  "precedences": [],
+  "externals": [],
+  "inline": [],
+  "supertypes": []
+}
+

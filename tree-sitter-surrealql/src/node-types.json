@@ -1,0 +1,493 @@
+[
+  {
+    "type": "content_token",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "create_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "content_token",
+          "named": true
+        },
+        {
+          "type": "create_token",
+          "named": true
+        },
+        {
+          "type": "object",
+          "named": true
+        },
+        {
+          "type": "table_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "create_token",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "define_field_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "define_token",
+          "named": true
+        },
+        {
+          "type": "field_def",
+          "named": true
+        },
+        {
+          "type": "field_token",
+          "named": true
+        },
+        {
+          "type": "on_table_token",
+          "named": true
+        },
+        {
+          "type": "table_def",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "define_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "define_field_statement",
+          "named": true
+        },
+        {
+          "type": "define_table_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "define_table_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "define_token",
+          "named": true
+        },
+        {
+          "type": "table_def",
+          "named": true
+        },
+        {
+          "type": "table_token",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "define_token",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "delete_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "delete_token",
+          "named": true
+        },
+        {
+          "type": "table_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "delete_token",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "field",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "field_def",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "field_name",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "field_token",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "from_token",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "let_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "let_token",
+          "named": true
+        },
+        {
+          "type": "value",
+          "named": true
+        },
+        {
+          "type": "variable_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "let_token",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "object",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "field",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "on_table_token",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "select_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "field_name",
+          "named": true
+        },
+        {
+          "type": "from_token",
+          "named": true
+        },
+        {
+          "type": "select_token",
+          "named": true
+        },
+        {
+          "type": "table_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "select_token",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "source_file",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "create_statement",
+          "named": true
+        },
+        {
+          "type": "define_statement",
+          "named": true
+        },
+        {
+          "type": "delete_statement",
+          "named": true
+        },
+        {
+          "type": "let_statement",
+          "named": true
+        },
+        {
+          "type": "select_statement",
+          "named": true
+        },
+        {
+          "type": "update_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "table_def",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "table_name",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "table_token",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "update_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "content_token",
+          "named": true
+        },
+        {
+          "type": "object",
+          "named": true
+        },
+        {
+          "type": "table_name",
+          "named": true
+        },
+        {
+          "type": "update_token",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "update_token",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "object",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": ",",
+    "named": false
+  },
+  {
+    "type": ":",
+    "named": false
+  },
+  {
+    "type": "=",
+    "named": false
+  },
+  {
+    "type": "CONTENT",
+    "named": false
+  },
+  {
+    "type": "CREATE",
+    "named": false
+  },
+  {
+    "type": "DEFINE",
+    "named": false
+  },
+  {
+    "type": "DELETE",
+    "named": false
+  },
+  {
+    "type": "FIELD",
+    "named": false
+  },
+  {
+    "type": "FROM",
+    "named": false
+  },
+  {
+    "type": "LET",
+    "named": false
+  },
+  {
+    "type": "ON",
+    "named": false
+  },
+  {
+    "type": "ON_TABLE",
+    "named": false
+  },
+  {
+    "type": "SELECT",
+    "named": false
+  },
+  {
+    "type": "TABLE",
+    "named": false
+  },
+  {
+    "type": "UPDATE",
+    "named": false
+  },
+  {
+    "type": "content",
+    "named": false
+  },
+  {
+    "type": "create",
+    "named": false
+  },
+  {
+    "type": "define",
+    "named": false
+  },
+  {
+    "type": "delete",
+    "named": false
+  },
+  {
+    "type": "field",
+    "named": false
+  },
+  {
+    "type": "from",
+    "named": false
+  },
+  {
+    "type": "let",
+    "named": false
+  },
+  {
+    "type": "number",
+    "named": true
+  },
+  {
+    "type": "on",
+    "named": false
+  },
+  {
+    "type": "on_table",
+    "named": false
+  },
+  {
+    "type": "select",
+    "named": false
+  },
+  {
+    "type": "string",
+    "named": true
+  },
+  {
+    "type": "table",
+    "named": false
+  },
+  {
+    "type": "update",
+    "named": false
+  },
+  {
+    "type": "variable_name",
+    "named": true
+  },
+  {
+    "type": "{",
+    "named": false
+  },
+  {
+    "type": "}",
+    "named": false
+  }
+]
