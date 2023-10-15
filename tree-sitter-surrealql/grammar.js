@@ -12,6 +12,7 @@ module.exports = grammar({
         $.delete_statement,
         $.let_statement,
         $.define_statement,
+        $.return_statement,
       ),
 
     create_token: ($) => choice("CREATE", "create"),
@@ -22,6 +23,7 @@ module.exports = grammar({
     define_token: ($) => choice("DEFINE", "define"),
     field_token: ($) => choice("FIELD", "field"),
     table_token: ($) => choice("TABLE", "table"),
+    function_token: ($) => choice("FUNCTION", "function"),
     _on_token: ($) => choice("ON", "on"),
     on_table_token: ($) => choice("ON_TABLE", "on_table", $._on_token),
     from_token: ($) => choice("FROM", "from"),
@@ -32,6 +34,7 @@ module.exports = grammar({
 
     define_table_statement: ($) =>
       seq($.define_token, $.table_token, $.table_def),
+
     define_field_statement: ($) =>
       seq(
         $.define_token,
@@ -40,6 +43,20 @@ module.exports = grammar({
         $.on_table_token,
         $.table_def,
       ),
+
+    define_function_statement: ($) =>
+      seq(
+        $.define_token,
+        $.function_token,
+        $.function_identifier,
+      ),
+
+    return_statement: ($) => seq("return", $.value),
+
+    function_parameter: ($) => seq($.variable_name, ":", $.type),
+
+    function_identifier: ($) => /[a-zA-Z0-9]+/,
+    function_ref: ($) => seq(repeat(seq($.function_identifier, "::")), $.function_identifier),
 
     create_statement: ($) =>
       seq($.create_token, $.table_name, $.content_token, $.object),
@@ -64,12 +81,21 @@ module.exports = grammar({
 
     field: ($) => seq($.string, ":", $.value, optional(",")),
 
-    value: ($) => choice($.string, $.number, $.object),
+    value: ($) => choice($.string, $.number, $.object, $.boolean, $.variable_name, $.code_block, $.value, $.bracketed_value, $.bracketed_statement),
+
+    bracketed_value: ($) => seq("(", $.value, ")"),
+    bracketed_statement: ($) => seq("(", $._statement, ")"),
 
     string: ($) => /"[^"]*"/,
     number: ($) => /[0-9]+/,
+    boolean: ($) => choice("true", "false"),
+    array: ($) => seq("[", $.value, repeat(seq(",", $.value)), "]"),
+
+    type: ($) => choice("string", "number", "boolean", "object"),
 
     variable_name: ($) => /\$[a-zA-Z0-9]+/,
+
+    code_block: ($) => seq("{", repeat($._statement), "}"),
   },
   external: ($) => [
     $.comment,
