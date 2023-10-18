@@ -1,0 +1,5 @@
+SELECT some FROM table WHERE id = 1;
+CREATE thing CONTENT "";
+CREATE thing CONTENT "a";
+myasdasd;
+CREATE something;

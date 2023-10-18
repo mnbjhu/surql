@@ -1,0 +1,11 @@
+/Users/james/nvim_projects/surql/rust-sitter-test/target/debug/deps/ascii-77c3ed2028b976ff.rmeta: /Users/james/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/lib.rs /Users/james/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/ascii_char.rs /Users/james/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/ascii_str.rs /Users/james/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/ascii_string.rs /Users/james/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/free_functions.rs
+
+/Users/james/nvim_projects/surql/rust-sitter-test/target/debug/deps/libascii-77c3ed2028b976ff.rlib: /Users/james/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/lib.rs /Users/james/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/ascii_char.rs /Users/james/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/ascii_str.rs /Users/james/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/ascii_string.rs /Users/james/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/free_functions.rs
+
+/Users/james/nvim_projects/surql/rust-sitter-test/target/debug/deps/ascii-77c3ed2028b976ff.d: /Users/james/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/lib.rs /Users/james/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/ascii_char.rs /Users/james/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/ascii_str.rs /Users/james/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/ascii_string.rs /Users/james/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/free_functions.rs
+
+/Users/james/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/lib.rs:
+/Users/james/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/ascii_char.rs:
+/Users/james/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/ascii_str.rs:
+/Users/james/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/ascii_string.rs:
+/Users/james/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/free_functions.rs:

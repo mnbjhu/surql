@@ -6,37 +6,33 @@ module.exports = grammar({
 
     _statement: ($) =>
       choice(
-        $.let_statement,
-        $.return_statement,
         $.create_statement,
         $.select_statement,
         $.update_statement,
         $.delete_statement,
+        $.let_statement,
         $.define_statement,
+        $.return_statement,
       ),
 
     create_token: ($) => choice("CREATE", "create"),
     select_token: ($) => choice("SELECT", "select"),
     update_token: ($) => choice("UPDATE", "update"),
     delete_token: ($) => choice("DELETE", "delete"),
+    return_token: ($) => choice("RETURN", "return"),
     content_token: ($) => choice("CONTENT", "content"),
     define_token: ($) => choice("DEFINE", "define"),
-    return_token: ($) => choice("RETURN", "return"),
+    type_token: ($) => choice("TYPE", "type"),
     field_token: ($) => choice("FIELD", "field"),
     table_token: ($) => choice("TABLE", "table"),
+    function_token: ($) => choice("FUNCTION", "function"),
     _on_token: ($) => choice("ON", "on"),
     on_table_token: ($) => choice("ON_TABLE", "on_table", $._on_token),
     from_token: ($) => choice("FROM", "from"),
     let_token: ($) => choice("LET", "let"),
-    type_token: ($) => choice("TYPE", "type"),
-    function_token: ($) => choice("FUNCTION", "function"),
 
     define_statement: ($) =>
-      choice(
-        $.define_table_statement,
-        $.define_field_statement,
-        $.define_function_statement,
-      ),
+      choice($.define_table_statement, $.define_field_statement, $.define_function_statement),
 
     define_table_statement: ($) =>
       seq($.define_token, $.table_token, $.table_name),
@@ -45,9 +41,9 @@ module.exports = grammar({
       seq(
         $.define_token,
         $.field_token,
-        $.field_def,
+        $.field_name,
         $.on_table_token,
-        $.table_def,
+        $.table_name,
         $.type_token,
         $.type,
       ),
@@ -68,14 +64,13 @@ module.exports = grammar({
     function_parameter: ($) => seq($.variable_name, ":", $.type),
 
     function_identifier: ($) => /[a-zA-Z0-9]+/,
-    function_ref: ($) =>
-      seq(repeat(seq($.function_identifier, "::")), $.function_identifier),
+    function_ref: ($) => seq(repeat(seq($.function_identifier, "::")), $.function_identifier),
 
     create_statement: ($) =>
-      seq($.create_token, $.table_name, $.content_token, $.object),
+      prec(1, seq($.create_token, $.table_name, $.content_token, $.object)),
 
     select_statement: ($) =>
-      seq($.select_token, $.var_args, $.from_token, $.table_name),
+      seq($.select_token, $.field_name, $.from_token, $.table_name),
 
     update_statement: ($) =>
       seq($.update_token, $.table_name, $.content_token, $.object),
@@ -87,29 +82,11 @@ module.exports = grammar({
     table_name: ($) => /[a-zA-Z0-9]+/,
     field_name: ($) => /[a-zA-Z0-9]+/,
 
-    table_def: ($) => /[a-zA-Z0-9]+/,
-    field_def: ($) => /[a-zA-Z0-9]+/,
-
-    object: ($) => prec(2, seq("{", repeat($.field), "}")),
+    object: ($) => seq("{", repeat($.field), "}"),
 
     field: ($) => seq($.string, ":", $.value, optional(",")),
 
-    where_clause: ($) => seq("where", $.value),
-    order_by_clause: ($) => seq("order", "by", $.value),
-
-    var_args: ($) => seq($.value, repeat(seq(",", $.value))),
-
-    value: ($) =>
-      choice(
-        $.string,
-        $.number,
-        $.object,
-        $.boolean,
-        $.variable_name,
-        $.code_block,
-        $.bracketed_statement,
-        $.field_name,
-      ),
+    value: ($) => choice($.string, $.number, $.object, $.boolean, $.variable_name, $.code_block, $.bracketed_value, $.bracketed_statement),
 
     bracketed_value: ($) => seq("(", $.value, ")"),
     bracketed_statement: ($) => seq("(", $._statement, ")"),
@@ -120,8 +97,6 @@ module.exports = grammar({
     array: ($) => seq("[", $.value, repeat(seq(",", $.value)), "]"),
 
     type: ($) => choice("string", "number", "boolean", "object"),
-
-    function_call: ($) => seq($.function_ref, "(", $.var_args, ")"),
 
     variable_name: ($) => /\$[a-zA-Z0-9]+/,
 

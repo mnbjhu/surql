@@ -44,6 +44,21 @@
     }
   },
   {
+    "type": "bracketed_value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "code_block",
     "named": true,
     "fields": {},
@@ -132,7 +147,7 @@
           "named": true
         },
         {
-          "type": "field_def",
+          "type": "field_name",
           "named": true
         },
         {
@@ -144,7 +159,7 @@
           "named": true
         },
         {
-          "type": "table_def",
+          "type": "table_name",
           "named": true
         },
         {
@@ -282,11 +297,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "field_def",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "field_name",
@@ -428,6 +438,10 @@
       "required": true,
       "types": [
         {
+          "type": "field_name",
+          "named": true
+        },
+        {
           "type": "from_token",
           "named": true
         },
@@ -437,10 +451,6 @@
         },
         {
           "type": "table_name",
-          "named": true
-        },
-        {
-          "type": "var_args",
           "named": true
         }
       ]
@@ -489,11 +499,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "table_def",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "table_name",
@@ -564,11 +569,11 @@
           "named": true
         },
         {
-          "type": "code_block",
+          "type": "bracketed_value",
           "named": true
         },
         {
-          "type": "field_name",
+          "type": "code_block",
           "named": true
         },
         {
@@ -585,21 +590,6 @@
         },
         {
           "type": "variable_name",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "var_args",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "value",
           "named": true
         }
       ]
@@ -702,10 +692,6 @@
     "named": false
   },
   {
-    "type": "by",
-    "named": false
-  },
-  {
     "type": "content",
     "named": false
   },
@@ -762,10 +748,6 @@
     "named": false
   },
   {
-    "type": "order",
-    "named": false
-  },
-  {
     "type": "return",
     "named": false
   },
@@ -800,10 +782,6 @@
   {
     "type": "variable_name",
     "named": true
-  },
-  {
-    "type": "where",
-    "named": false
   },
   {
     "type": "{",

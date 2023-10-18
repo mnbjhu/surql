@@ -1,0 +1,1 @@
+/Users/james/nvim_projects/surql/rust-sitter-test/target/debug/rust-sitter-test: /Users/james/nvim_projects/surql/rust-sitter-test/build.rs /Users/james/nvim_projects/surql/rust-sitter-test/src /Users/james/nvim_projects/surql/rust-sitter-test/src/main.rs
