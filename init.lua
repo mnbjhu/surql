@@ -58,7 +58,7 @@ local configs = require("lspconfig.configs")
 if not configs.surrealql then
   configs.surrealql = {
     default_config = {
-      cmd = { "surrealdb-lsp", "--stdio" },
+      cmd = { "surrealdb-lsp" },
       root_dir = lspconfig.util.root_pattern(".root_dir"),
       filetypes = { "suql" },
     },

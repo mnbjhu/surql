@@ -1,0 +1,4 @@
+select some from table where id = 1;
+create thing 123;
+create thing content "a";
+create something;
