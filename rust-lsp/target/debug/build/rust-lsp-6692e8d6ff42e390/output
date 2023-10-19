@@ -1,0 +1,1 @@
+cargo:rerun-if-changed=../tree-sitter-surrealql/src/parser.c

@@ -1,1 +1,4 @@
-SELECT some FROM users
+SELECT some FROM some
+
+CREATE some
+CONTENT { "some": "some" }

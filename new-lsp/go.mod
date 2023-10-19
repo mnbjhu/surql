@@ -8,6 +8,7 @@ require (
 )
 
 require (
+	github.com/TobiasYin/go-lsp v0.0.0-20230726094935-726488f25eb2
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/iancoleman/strcase v0.2.0 // indirect

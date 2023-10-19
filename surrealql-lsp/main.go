@@ -21,22 +21,28 @@ func strPtr(str string) *string {
 	return &str
 }
 
+func boolPtr(b bool) *bool {
+	return &b
+}
+
 var (
 	ts      = sitter.NewParser()
 	logPath *string
-	tree    *sitter.Node
+	tree    *sitter.Tree
+	doc     string
 )
 
 func init() {
+	ts.Debug()
 	ts.SetLanguage(bindings.GetLanguage())
-	out := ts.Parse(nil, []byte(`CREATE some CONTENT {"thing" : "thing"}`))
 	var logger *log.Logger
 	defer func() {
 		logs.Init(logger)
-		log.Println(out.RootNode())
 	}()
 	logPath = flag.String("logs", "", "logs file path")
+	flag.Parse()
 	if logPath == nil || *logPath == "" {
+		println("logs init error: log path is empty")
 		logger = log.New(os.Stderr, "", 0)
 		return
 	}
@@ -55,15 +61,54 @@ func init() {
 }
 
 func main() {
-	server := lsp.NewServer(&lsp.Options{CompletionProvider: &defines.CompletionOptions{
-		TriggerCharacters: &[]string{"."},
-	}})
+	server := lsp.NewServer(&lsp.Options{
+		CompletionProvider: &defines.CompletionOptions{
+			TriggerCharacters: &[]string{"."},
+		},
+		HoverProvider: &defines.HoverOptions{
+			WorkDoneProgressOptions: defines.WorkDoneProgressOptions{
+				WorkDoneProgress: boolPtr(true),
+			},
+		},
+	})
 
-	server.OnInitialize(func(ctx context.Context, req *defines.InitializeParams) (result *defines.InitializeResult, err *defines.InitializeError) {
-		logs.Println("init: ", req)
-		return &defines.InitializeResult{
-			Capabilities: defines.ServerCapabilities{},
-		}, nil
+	server.OnDidOpenTextDocument(func(ctx context.Context, req *defines.DidOpenTextDocumentParams) (err error) {
+		logs.Println("opened: ", req)
+		new_tree, err := ts.ParseCtx(ctx, tree, []byte(req.TextDocument.Text))
+		if err != nil {
+			logs.Printf("parse error: %v", err)
+			return err
+		}
+		tree = new_tree
+		logs.Println("parse success: ", tree.RootNode().String())
+		return nil
+	})
+
+	server.OnDidChangeTextDocument(func(ctx context.Context, req *defines.DidChangeTextDocumentParams) (err error) {
+		logs.Println("change: ", req)
+		new_tree, err := ts.ParseCtx(ctx, tree, []byte(req.ContentChanges[0].Text.(string)))
+		if err != nil {
+			logs.Printf("parse error: %v", err)
+			return err
+		}
+		tree = new_tree
+		logs.Println("parse success: ", tree.RootNode().String())
+		return nil
+	})
+
+	server.OnDidCloseTextDocument(func(ctx context.Context, req *defines.DidCloseTextDocumentParams) (err error) {
+		logs.Println("close: ", req)
+		return nil
+	})
+
+	server.OnDidSaveTextDocument(func(ctx context.Context, req *defines.DidSaveTextDocumentParams) (err error) {
+		logs.Println("save: ", req)
+		return nil
+	})
+
+	server.OnHover(func(ctx context.Context, req *defines.HoverParams) (result *defines.Hover, err error) {
+		logs.Println("hover: ", req)
+		return &defines.Hover{Contents: defines.MarkupContent{Kind: defines.MarkupKindPlainText, Value: "hello world"}}, nil
 	})
 
 	// server.OnHover(func(ctx context.Context, req *defines.HoverParams) (result *defines.Hover, err error) {
@@ -71,15 +116,17 @@ func main() {
 	// 	return &defines.Hover{Contents: defines.MarkupContent{Kind: defines.MarkupKindPlainText, Value: "hello world"}}, nil
 	// })
 	//
-	// server.OnCompletion(func(ctx context.Context, req *defines.CompletionParams) (result *[]defines.CompletionItem, err error) {
-	// 	logs.Println("completion: ", req)
-	// 	d := defines.CompletionItemKindModule
-	// 	return &[]defines.CompletionItem{{
-	// 		Label:      "code",
-	// 		Kind:       &d,
-	// 		InsertText: strPtr("Hello"),
-	// 	}}, nil
-	// })
+	server.OnCompletion(func(ctx context.Context, req *defines.CompletionParams) (result *[]defines.CompletionItem, err error) {
+		logs.Println("completion: ", req)
+		d := defines.CompletionItemKindModule
+
+		return &[]defines.CompletionItem{{
+			Label:      "code",
+			Kind:       &d,
+			InsertText: strPtr("Hello"),
+		}}, nil
+	})
+
 	//
 	// server.OnDidChangeTextDocument(func(ctx context.Context, req *defines.DidChangeTextDocumentParams) (err error) {
 	// 	logs.Println("change: ", req)
@@ -87,8 +134,6 @@ func main() {
 	// })
 	//
 	// server.OnDefinition(func(ctx context.Context, req *defines.DefinitionParams) (result *[]defines.LocationLink, err error) {
-	// 	req.TextDocument
-	// 	tree = ts.Parse(nil, []byte(req.))
 	// })
 	//
 	// server.OnDocumentFormatting(func(ctx context.Context, req *defines.DocumentFormattingParams) (result *[]defines.TextEdit, err error) {

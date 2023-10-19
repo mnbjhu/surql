@@ -1,3 +1,5 @@
+github.com/TobiasYin/go-lsp v0.0.0-20230726094935-726488f25eb2 h1:WqCrfY3A+SiWvG9I9ONeahS6ggFuHpnJyhucaRhm6VU=
+github.com/TobiasYin/go-lsp v0.0.0-20230726094935-726488f25eb2/go.mod h1:wcol2p6rdHzKIPn6+I4LL9jv6BBkBklZGZsrZ15wkgU=
 github.com/aymanbagabas/go-osc52/v2 v2.0.1 h1:HwpRHbFMcZLEVr42D4p7XBqjyuxQH5SMiErDT4WkJ2k=
 github.com/aymanbagabas/go-osc52/v2 v2.0.1/go.mod h1:uYgXzlJ7ZpABp8OJ+exZzJJhRNQ2ASbcXHWsFqH8hp8=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

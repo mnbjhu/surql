@@ -1,0 +1,13 @@
+/home/mnbjhu/surql/rust-lsp/target/debug/deps/url-90ce980d21b455ce.rmeta: /home/mnbjhu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.4.1/src/lib.rs /home/mnbjhu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.4.1/src/host.rs /home/mnbjhu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.4.1/src/origin.rs /home/mnbjhu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.4.1/src/parser.rs /home/mnbjhu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.4.1/src/path_segments.rs /home/mnbjhu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.4.1/src/slicing.rs /home/mnbjhu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.4.1/src/quirks.rs
+
+/home/mnbjhu/surql/rust-lsp/target/debug/deps/liburl-90ce980d21b455ce.rlib: /home/mnbjhu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.4.1/src/lib.rs /home/mnbjhu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.4.1/src/host.rs /home/mnbjhu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.4.1/src/origin.rs /home/mnbjhu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.4.1/src/parser.rs /home/mnbjhu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.4.1/src/path_segments.rs /home/mnbjhu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.4.1/src/slicing.rs /home/mnbjhu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.4.1/src/quirks.rs
+
+/home/mnbjhu/surql/rust-lsp/target/debug/deps/url-90ce980d21b455ce.d: /home/mnbjhu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.4.1/src/lib.rs /home/mnbjhu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.4.1/src/host.rs /home/mnbjhu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.4.1/src/origin.rs /home/mnbjhu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.4.1/src/parser.rs /home/mnbjhu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.4.1/src/path_segments.rs /home/mnbjhu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.4.1/src/slicing.rs /home/mnbjhu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.4.1/src/quirks.rs
+
+/home/mnbjhu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.4.1/src/lib.rs:
+/home/mnbjhu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.4.1/src/host.rs:
+/home/mnbjhu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.4.1/src/origin.rs:
+/home/mnbjhu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.4.1/src/parser.rs:
+/home/mnbjhu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.4.1/src/path_segments.rs:
+/home/mnbjhu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.4.1/src/slicing.rs:
+/home/mnbjhu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/url-2.4.1/src/quirks.rs:

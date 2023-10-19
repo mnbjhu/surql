@@ -2,11 +2,32 @@
   "name": "mylang",
   "rules": {
     "source_file": {
-      "type": "REPEAT",
-      "content": {
-        "type": "SYMBOL",
-        "name": "statement"
-      }
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "statement"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "statement"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
     },
     "statement": {
       "type": "SEQ",
@@ -15,30 +36,30 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "_statement_start"
-                },
-                {
-                  "type": "REPEAT",
-                  "content": {
+              "type": "PREC_LEFT",
+              "value": 1,
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
                     "type": "SYMBOL",
-                    "name": "_statement_argument"
+                    "name": "_statement_start"
+                  },
+                  {
+                    "type": "REPEAT",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "_statement_argument"
+                    }
                   }
-                }
-              ]
+                ]
+              }
             },
             {
               "type": "SYMBOL",
               "name": "expected_statement"
             }
           ]
-        },
-        {
-          "type": "STRING",
-          "value": ";"
         }
       ]
     },
@@ -647,7 +668,7 @@
       "value": -1,
       "content": {
         "type": "PATTERN",
-        "value": "[a-za-z_][a-za-z0-9_]*"
+        "value": "[a-zA-Z_][a-zA-Z0-9_]*"
       }
     },
     "_value": {
@@ -885,7 +906,7 @@
       "value": 1,
       "content": {
         "type": "PATTERN",
-        "value": "[a-za-z_][a-za-z0-9_]*"
+        "value": "[a-zA-Z_][a-zA-Z0-9_]*"
       }
     },
     "expected_table_name": {
@@ -911,7 +932,7 @@
     },
     "column_name": {
       "type": "PATTERN",
-      "value": "[a-za-z_][a-za-z0-9_]*"
+      "value": "[a-zA-Z_][a-zA-Z0-9_]*"
     },
     "expected_column_name": {
       "type": "PREC",
