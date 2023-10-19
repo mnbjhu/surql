@@ -5,9 +5,17 @@ module.exports = grammar({
 
     statement: ($) => seq($._statement_start, repeat($._statement_param), ";"),
 
-    _statement_start: ($) => choice($.select_part, $.create_part, $.update_part, $.delete_part, $.content_part),
+    _statement_start: ($) =>
+      choice(
+        $.select_part,
+        $.create_part,
+        $.update_part,
+        $.delete_part,
+        $.content_part,
+      ),
     _statement_param: ($) => choice($.from_part, $.where_part, $.content_part),
 
+    let: ($) => "let",
     select: ($) => token("select"),
     from: ($) => token("from"),
     where: ($) => token("where"),
@@ -15,7 +23,8 @@ module.exports = grammar({
     update: ($) => token("update"),
     delete: ($) => token("delete"),
     content: ($) => token("content"),
-    invalid_part: ($) => prec(-3, /[a-zA-Z0-9_]+/),
+    define: ($) => "define",
+    function_token: ($) => "function",
 
     select_part: ($) => seq($.select, optional($.column_name)),
     from_part: ($) => seq($.from, optional($.table_name)),
@@ -25,9 +34,18 @@ module.exports = grammar({
     delete_part: ($) => seq($.delete, optional($.table_name)),
     content_part: ($) => seq($.content, optional($.value)),
 
-
     value: ($) =>
-      choice($.number, $.string, $.boolean, $.null, $.operation, $.column_name),
+      choice(
+        $.number,
+        $.string,
+        $.boolean,
+        $.null,
+        $.operation,
+        $.column_name,
+        $.table_name,
+        $.array,
+        $.object,
+      ),
 
     equal: ($) => prec.left(0, seq($.value, "=", $.value)),
 
@@ -46,9 +64,59 @@ module.exports = grammar({
     boolean: ($) => choice("true", "false"),
     null: ($) => "null",
 
-    table_name: ($) => prec(-1, /[a-zA-Z_][a-zA-Z0-9_]*/),
-    column_name: ($) => prec(-1, /[a-zA-Z_][a-zA-Z0-9_]*/),
-    unexpected_name: ($) => prec(-2, /[a-zA-Z_][a-zA-Z0-9_]*/),
+    array: ($) => seq("[", repeat(seq($.value, ",", optional($.value))), "]"),
+
+    object_entry: ($) => seq($.string, ":", $.value),
+    object: ($) =>
+      seq("{", repeat(seq($.object_entry, ","), optional($.object_entry)), "}"),
+
+    _simple_name: ($) => /[a-zA-Z_][a-zA-Z0-9_]*/,
+
+    table_name: ($) => prec(-1, $._simple_name),
+    column_name: ($) => prec(-1, $._simple_name),
+    unexpected_name: ($) => prec(-2, $._simple_name),
     unexpected_value: ($) => prec(-3, $.value),
+
+    function_name: ($) =>
+      seq($._simple_name, repeat1(seq(token.immediate("::"), $._simple_name))),
+
+    variable: ($) => seq("$", $._simple_name),
+
+    variable_declaration: ($) => seq($.let, $.variable, "=", $.value),
+
+    function_declaration: ($) =>
+      seq(
+        define,
+        function_token,
+        $.function_name,
+        $.function_args,
+        $.function_body,
+      ),
+
+    function_args: ($) => seq("(", repeat(seq($.function_arg, ",")), ")"),
+    function_arg: ($) => seq($._simple_name, optional(seq(":", $.type))),
+    function_body: ($) => seq("{", repeat($.statement), "}"),
+
+    type: ($) =>
+      choice("string", "number", "boolean", "null", "array", "object"),
+
+    table_definition: ($) => seq($.define, $.table, $.table_name),
+
+    field_definition: ($) =>
+      seq(
+        $.define,
+        $.column_name,
+        $.on_table,
+        $.table_name,
+        $.type_token,
+        $.type,
+      ),
+
+    _definition: ($) => choice($.field_definition, $.table_definition),
+    definition: ($) => seq($._definition, ";"),
+
+    type_token: ($) => "type",
+    table: ($) => "table",
+    on_table: ($) => choice("on", "on table"),
   },
 });
