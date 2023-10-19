@@ -1,1 +1,0 @@
-{"rustc":17076606582453448740,"features":"","target":0,"profile":0,"path":0,"deps":[[11164205635302014329,"build_script_build",false,17050730025712398254]],"local":[{"RerunIfChanged":{"output":"debug/build/rust-lsp-6692e8d6ff42e390/output","paths":["../tree-sitter-surrealql/src/parser.c"]}}],"rustflags":[],"metadata":0,"config":0,"compile_kind":0}

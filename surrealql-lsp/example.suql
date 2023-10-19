@@ -1,4 +1,0 @@
-SELECT some FROM some
-
-CREATE some
-CONTENT { "some": "some" }
