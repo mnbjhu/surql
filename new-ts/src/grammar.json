@@ -10,17 +10,141 @@
             "type": "SYMBOL",
             "name": "statement"
           }
+        }
+      ]
+    },
+    "statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_statement_start"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_statement_param"
+          }
         },
         {
           "type": "STRING",
           "value": ";"
+        }
+      ]
+    },
+    "_statement_start": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "select_part"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "create_part"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "update_part"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "delete_part"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "content_part"
+        }
+      ]
+    },
+    "_statement_param": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "from_part"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "where_part"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "content_part"
+        }
+      ]
+    },
+    "select": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "select"
+      }
+    },
+    "from": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "from"
+      }
+    },
+    "where": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "where"
+      }
+    },
+    "create": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "create"
+      }
+    },
+    "update": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "update"
+      }
+    },
+    "delete": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "delete"
+      }
+    },
+    "content": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "content"
+      }
+    },
+    "invalid_part": {
+      "type": "PREC",
+      "value": -3,
+      "content": {
+        "type": "PATTERN",
+        "value": "[a-zA-Z0-9_]+"
+      }
+    },
+    "select_part": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "select"
         },
         {
           "type": "CHOICE",
           "members": [
             {
               "type": "SYMBOL",
-              "name": "statement"
+              "name": "column_name"
             },
             {
               "type": "BLANK"
@@ -29,672 +153,131 @@
         }
       ]
     },
-    "statement": {
+    "from_part": {
       "type": "SEQ",
       "members": [
+        {
+          "type": "SYMBOL",
+          "name": "from"
+        },
         {
           "type": "CHOICE",
           "members": [
             {
-              "type": "PREC_LEFT",
-              "value": 1,
-              "content": {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "_statement_start"
-                  },
-                  {
-                    "type": "REPEAT",
-                    "content": {
-                      "type": "SYMBOL",
-                      "name": "_statement_argument"
-                    }
-                  }
-                ]
-              }
+              "type": "SYMBOL",
+              "name": "table_name"
             },
             {
-              "type": "SYMBOL",
-              "name": "expected_statement"
+              "type": "BLANK"
             }
           ]
         }
       ]
     },
-    "_select_token": {
-      "type": "CHOICE",
+    "where_part": {
+      "type": "SEQ",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "select_token"
+          "name": "where"
         },
         {
-          "type": "SYMBOL",
-          "name": "expected_select_token"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "value"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
-    "select_token": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "SELECT"
-        },
-        {
-          "type": "STRING",
-          "value": "select"
-        }
-      ]
-    },
-    "expected_select_token": {
-      "type": "PREC",
-      "value": -1,
-      "content": {
-        "type": "SYMBOL",
-        "name": "found"
-      }
-    },
-    "_where_token": {
-      "type": "CHOICE",
+    "create_part": {
+      "type": "SEQ",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "where_token"
+          "name": "create"
         },
         {
-          "type": "SYMBOL",
-          "name": "expected_where_token"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "table_name"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
-    "where_token": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "WHERE"
-        },
-        {
-          "type": "STRING",
-          "value": "where"
-        }
-      ]
-    },
-    "expected_where_token": {
-      "type": "PREC",
-      "value": -1,
-      "content": {
-        "type": "SYMBOL",
-        "name": "found"
-      }
-    },
-    "_from_token": {
-      "type": "CHOICE",
+    "update_part": {
+      "type": "SEQ",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "from_token"
+          "name": "update"
         },
         {
-          "type": "SYMBOL",
-          "name": "expected_from_token"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "table_name"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
-    "from_token": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "FROM"
-        },
-        {
-          "type": "STRING",
-          "value": "from"
-        }
-      ]
-    },
-    "expected_from_token": {
-      "type": "PREC",
-      "value": -1,
-      "content": {
-        "type": "SYMBOL",
-        "name": "found"
-      }
-    },
-    "_create_token": {
-      "type": "CHOICE",
+    "delete_part": {
+      "type": "SEQ",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "create_token"
+          "name": "delete"
         },
         {
-          "type": "SYMBOL",
-          "name": "expected_create_token"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "table_name"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
-    "create_token": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "CREATE"
-        },
-        {
-          "type": "STRING",
-          "value": "create"
-        }
-      ]
-    },
-    "expected_create_token": {
-      "type": "PREC",
-      "value": -1,
-      "content": {
-        "type": "SYMBOL",
-        "name": "found"
-      }
-    },
-    "_content_token": {
-      "type": "CHOICE",
+    "content_part": {
+      "type": "SEQ",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "content_token"
+          "name": "content"
         },
         {
-          "type": "SYMBOL",
-          "name": "expected_content_token"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "value"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
-    },
-    "content_token": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "CONTENT"
-        },
-        {
-          "type": "STRING",
-          "value": "content"
-        }
-      ]
-    },
-    "expected_content_token": {
-      "type": "PREC",
-      "value": -1,
-      "content": {
-        "type": "SYMBOL",
-        "name": "found"
-      }
-    },
-    "_update_token": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "update_token"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "expected_update_token"
-        }
-      ]
-    },
-    "update_token": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "UPDATE"
-        },
-        {
-          "type": "STRING",
-          "value": "update"
-        }
-      ]
-    },
-    "expected_update_token": {
-      "type": "PREC",
-      "value": -1,
-      "content": {
-        "type": "SYMBOL",
-        "name": "found"
-      }
-    },
-    "_delete_token": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "delete_token"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "expected_delete_token"
-        }
-      ]
-    },
-    "delete_token": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "DELETE"
-        },
-        {
-          "type": "STRING",
-          "value": "delete"
-        }
-      ]
-    },
-    "expected_delete_token": {
-      "type": "PREC",
-      "value": -1,
-      "content": {
-        "type": "SYMBOL",
-        "name": "found"
-      }
-    },
-    "expected_statement": {
-      "type": "PREC",
-      "value": -2,
-      "content": {
-        "type": "SYMBOL",
-        "name": "found"
-      }
-    },
-    "_token": {
-      "type": "PREC",
-      "value": -1,
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "select_token"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "from_token"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "create_token"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "update_token"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "delete_token"
-          }
-        ]
-      }
-    },
-    "_statement_start": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_select_statement"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_create_statement"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_update_statement"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_delete_statement"
-        }
-      ]
-    },
-    "_statement_argument": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_where_statement"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_content_statement"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_from_statement"
-        }
-      ]
-    },
-    "where_statement": {
-      "type": "PREC",
-      "value": 1,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "where_token"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "_value"
-          }
-        ]
-      }
-    },
-    "where_statement_missing_argument": {
-      "type": "SYMBOL",
-      "name": "where_token"
-    },
-    "_where_statement": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "where_statement"
-        },
-        {
-          "type": "PREC",
-          "value": -1,
-          "content": {
-            "type": "SYMBOL",
-            "name": "where_statement_missing_argument"
-          }
-        }
-      ]
-    },
-    "content_statement": {
-      "type": "PREC",
-      "value": 1,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "content_token"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "_value"
-          }
-        ]
-      }
-    },
-    "content_statement_missing_argument": {
-      "type": "SYMBOL",
-      "name": "content_token"
-    },
-    "_content_statement": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "content_statement"
-        },
-        {
-          "type": "PREC",
-          "value": -1,
-          "content": {
-            "type": "SYMBOL",
-            "name": "content_statement_missing_argument"
-          }
-        }
-      ]
-    },
-    "from_statement": {
-      "type": "PREC",
-      "value": 1,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "from_token"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "_table_name"
-          }
-        ]
-      }
-    },
-    "from_statement_missing_argument": {
-      "type": "SYMBOL",
-      "name": "from_token"
-    },
-    "_from_statement": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "from_statement"
-        },
-        {
-          "type": "PREC",
-          "value": -1,
-          "content": {
-            "type": "SYMBOL",
-            "name": "from_statement_missing_argument"
-          }
-        }
-      ]
-    },
-    "select_statement": {
-      "type": "PREC",
-      "value": 1,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "select_token"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "value"
-          }
-        ]
-      }
-    },
-    "select_statement_missing_argument": {
-      "type": "SYMBOL",
-      "name": "select_token"
-    },
-    "_select_statement": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "select_statement"
-        },
-        {
-          "type": "PREC",
-          "value": -1,
-          "content": {
-            "type": "SYMBOL",
-            "name": "select_statement_missing_argument"
-          }
-        }
-      ]
-    },
-    "create_statement": {
-      "type": "PREC",
-      "value": 1,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "create_token"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "_table_name"
-          }
-        ]
-      }
-    },
-    "create_statement_missing_argument": {
-      "type": "SYMBOL",
-      "name": "create_token"
-    },
-    "_create_statement": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "create_statement"
-        },
-        {
-          "type": "PREC",
-          "value": -1,
-          "content": {
-            "type": "SYMBOL",
-            "name": "create_statement_missing_argument"
-          }
-        }
-      ]
-    },
-    "update_statement": {
-      "type": "PREC",
-      "value": 1,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "update_token"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "_table_name"
-          }
-        ]
-      }
-    },
-    "update_statement_missing_argument": {
-      "type": "SYMBOL",
-      "name": "update_token"
-    },
-    "_update_statement": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "update_statement"
-        },
-        {
-          "type": "PREC",
-          "value": -1,
-          "content": {
-            "type": "SYMBOL",
-            "name": "update_statement_missing_argument"
-          }
-        }
-      ]
-    },
-    "delete_statement": {
-      "type": "PREC",
-      "value": 1,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "delete_token"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "_table_name"
-          }
-        ]
-      }
-    },
-    "delete_statement_missing_argument": {
-      "type": "SYMBOL",
-      "name": "delete_token"
-    },
-    "_delete_statement": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "delete_statement"
-        },
-        {
-          "type": "PREC",
-          "value": -1,
-          "content": {
-            "type": "SYMBOL",
-            "name": "delete_statement_missing_argument"
-          }
-        }
-      ]
-    },
-    "found": {
-      "type": "PREC",
-      "value": -1,
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "_token"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "value"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "unknown_name"
-          }
-        ]
-      }
-    },
-    "unknown_name": {
-      "type": "PREC",
-      "value": -1,
-      "content": {
-        "type": "PATTERN",
-        "value": "[a-zA-Z_][a-zA-Z0-9_]*"
-      }
-    },
-    "_value": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "PREC",
-          "value": 2,
-          "content": {
-            "type": "SYMBOL",
-            "name": "value"
-          }
-        },
-        {
-          "type": "PREC",
-          "value": 1,
-          "content": {
-            "type": "SYMBOL",
-            "name": "expected_value"
-          }
-        }
-      ]
-    },
-    "expected_value": {
-      "type": "SYMBOL",
-      "name": "found"
     },
     "value": {
       "type": "CHOICE",
@@ -880,66 +463,36 @@
       "type": "STRING",
       "value": "null"
     },
-    "_table_name": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "PREC",
-          "value": 2,
-          "content": {
-            "type": "SYMBOL",
-            "name": "table_name"
-          }
-        },
-        {
-          "type": "PREC",
-          "value": 1,
-          "content": {
-            "type": "SYMBOL",
-            "name": "expected_table_name"
-          }
-        }
-      ]
-    },
     "table_name": {
       "type": "PREC",
-      "value": 1,
+      "value": -1,
       "content": {
         "type": "PATTERN",
         "value": "[a-zA-Z_][a-zA-Z0-9_]*"
       }
     },
-    "expected_table_name": {
+    "column_name": {
       "type": "PREC",
       "value": -1,
       "content": {
-        "type": "SYMBOL",
-        "name": "found"
+        "type": "PATTERN",
+        "value": "[a-zA-Z_][a-zA-Z0-9_]*"
       }
     },
-    "_column_name": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "column_name"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "expected_column_name"
-        }
-      ]
-    },
-    "column_name": {
-      "type": "PATTERN",
-      "value": "[a-zA-Z_][a-zA-Z0-9_]*"
-    },
-    "expected_column_name": {
+    "unexpected_name": {
       "type": "PREC",
       "value": -2,
       "content": {
+        "type": "PATTERN",
+        "value": "[a-zA-Z_][a-zA-Z0-9_]*"
+      }
+    },
+    "unexpected_value": {
+      "type": "PREC",
+      "value": -3,
+      "content": {
         "type": "SYMBOL",
-        "name": "found"
+        "name": "value"
       }
     }
   },

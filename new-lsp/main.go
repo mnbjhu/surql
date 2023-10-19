@@ -54,11 +54,8 @@ func main() {
 func initialize(context *glsp.Context, params *protocol.InitializeParams) (any, error) {
 	capabilities := handler.CreateServerCapabilities()
 	capabilities.TextDocumentSync = protocol.TextDocumentSyncKindIncremental
-	capabilities.DefinitionProvider = true
-	capabilities.DocumentSymbolProvider = true
-	capabilities.HoverProvider = true
 	capabilities.CompletionProvider = &protocol.CompletionOptions{
-		TriggerCharacters: []string{".", " "},
+		TriggerCharacters: []string{" "},
 	}
 	return protocol.InitializeResult{
 		Capabilities: capabilities,
@@ -139,20 +136,46 @@ func findNodeByPosition(position protocol.Position) *sitter.Node {
 
 func completion(context *glsp.Context, params *protocol.CompletionParams) (any, error) {
 	node := findNodeByPosition(params.Position)
-	if node == nil {
-		return nil, nil
+	logger.Printf("Completion: %v", node)
+	for {
+		if node.Type() == "ERROR" && node.Parent().Type() == "ERROR" {
+			node = node.Parent()
+		} else {
+			break
+		}
 	}
-	logger.Printf("Completion node: %v", node)
-	detail := node.String()
-	return []protocol.CompletionItem{
-		{
-			Label:  "test",
-			Detail: &detail,
-		},
-	}, nil
+	if node.Type() == "ERROR" {
+		if node.Parent().Type() == "source_file" {
+			keyword := protocol.CompletionItemKindKeyword
+			suggest := []string{"create", "select", "update", "delete"}
+			completions := []protocol.CompletionItem{}
+			for _, s := range suggest {
+				completions = append(completions, protocol.CompletionItem{
+					Label: s,
+					Kind:  &keyword,
+				},
+				)
+			}
+			return completions, nil
+		}
+		if node.Parent().Type() == "statement" {
+			keyword := protocol.CompletionItemKindKeyword
+			suggest := []string{"from", "where", "content"}
+			completions := []protocol.CompletionItem{}
+			for _, s := range suggest {
+				completions = append(completions, protocol.CompletionItem{
+					Label: s,
+					Kind:  &keyword,
+				})
+			}
+			return completions, nil
+		}
+	}
+	return []protocol.CompletionItem{}, nil
 }
 
 func didChange(ctx *glsp.Context, params *protocol.DidChangeTextDocumentParams) error {
+	logger.Printf("Change: %v", params.ContentChanges)
 	for _, change := range params.ContentChanges {
 		change := change.(protocol.TextDocumentContentChangeEvent)
 		start, end := change.Range.IndexesIn(text)
@@ -193,7 +216,7 @@ func setTrace(context *glsp.Context, params *protocol.SetTraceParams) error {
 func updateDiagnostics(context *glsp.Context, uri protocol.DocumentUri) {
 	logger.Printf("Updating diagnostics for %s. Text: %v, tree: %v", uri, text, tree.RootNode().String())
 	diagnostics := []protocol.Diagnostic{}
-	for _, node := range getFindTokensByName("expected_statement") {
+	for _, node := range getFindTokensByName("ERROR") {
 		diagnostics = append(diagnostics, protocol.Diagnostic{
 			Range: protocol.Range{
 				Start: protocol.Position{

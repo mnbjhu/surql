@@ -10,7 +10,7 @@
     "fields": {}
   },
   {
-    "type": "content_statement",
+    "type": "content_part",
     "named": true,
     "fields": {},
     "children": {
@@ -18,11 +18,7 @@
       "required": true,
       "types": [
         {
-          "type": "content_token",
-          "named": true
-        },
-        {
-          "type": "expected_value",
+          "type": "content",
           "named": true
         },
         {
@@ -33,27 +29,7 @@
     }
   },
   {
-    "type": "content_statement_missing_argument",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "content_token",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "content_token",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "create_statement",
+    "type": "create_part",
     "named": true,
     "fields": {},
     "children": {
@@ -61,11 +37,7 @@
       "required": true,
       "types": [
         {
-          "type": "create_token",
-          "named": true
-        },
-        {
-          "type": "expected_table_name",
+          "type": "create",
           "named": true
         },
         {
@@ -76,27 +48,7 @@
     }
   },
   {
-    "type": "create_statement_missing_argument",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "create_token",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "create_token",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "delete_statement",
+    "type": "delete_part",
     "named": true,
     "fields": {},
     "children": {
@@ -104,11 +56,7 @@
       "required": true,
       "types": [
         {
-          "type": "delete_token",
-          "named": true
-        },
-        {
-          "type": "expected_table_name",
+          "type": "delete",
           "named": true
         },
         {
@@ -117,26 +65,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "delete_statement_missing_argument",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "delete_token",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "delete_token",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "divide",
@@ -169,211 +97,7 @@
     }
   },
   {
-    "type": "expected_column_name",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "found",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "expected_content_token",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "found",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "expected_create_token",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "found",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "expected_delete_token",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "found",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "expected_from_token",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "found",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "expected_select_token",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "found",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "expected_statement",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "found",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "expected_table_name",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "found",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "expected_update_token",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "found",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "expected_value",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "found",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "expected_where_token",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "found",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "found",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "create_token",
-          "named": true
-        },
-        {
-          "type": "delete_token",
-          "named": true
-        },
-        {
-          "type": "from_token",
-          "named": true
-        },
-        {
-          "type": "select_token",
-          "named": true
-        },
-        {
-          "type": "unknown_name",
-          "named": true
-        },
-        {
-          "type": "update_token",
-          "named": true
-        },
-        {
-          "type": "value",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "from_statement",
+    "type": "from_part",
     "named": true,
     "fields": {},
     "children": {
@@ -381,11 +105,7 @@
       "required": true,
       "types": [
         {
-          "type": "expected_table_name",
-          "named": true
-        },
-        {
-          "type": "from_token",
+          "type": "from",
           "named": true
         },
         {
@@ -394,26 +114,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "from_statement_missing_argument",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "from_token",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "from_token",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "operation",
@@ -462,7 +162,7 @@
     }
   },
   {
-    "type": "select_statement",
+    "type": "select_part",
     "named": true,
     "fields": {},
     "children": {
@@ -470,35 +170,15 @@
       "required": true,
       "types": [
         {
-          "type": "select_token",
+          "type": "column_name",
           "named": true
         },
         {
-          "type": "value",
+          "type": "select",
           "named": true
         }
       ]
     }
-  },
-  {
-    "type": "select_statement_missing_argument",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "select_token",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "select_token",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "source_file",
@@ -521,66 +201,34 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "content_statement",
+          "type": "content_part",
           "named": true
         },
         {
-          "type": "content_statement_missing_argument",
+          "type": "create_part",
           "named": true
         },
         {
-          "type": "create_statement",
+          "type": "delete_part",
           "named": true
         },
         {
-          "type": "create_statement_missing_argument",
+          "type": "from_part",
           "named": true
         },
         {
-          "type": "delete_statement",
+          "type": "select_part",
           "named": true
         },
         {
-          "type": "delete_statement_missing_argument",
+          "type": "update_part",
           "named": true
         },
         {
-          "type": "expected_statement",
-          "named": true
-        },
-        {
-          "type": "from_statement",
-          "named": true
-        },
-        {
-          "type": "from_statement_missing_argument",
-          "named": true
-        },
-        {
-          "type": "select_statement",
-          "named": true
-        },
-        {
-          "type": "select_statement_missing_argument",
-          "named": true
-        },
-        {
-          "type": "update_statement",
-          "named": true
-        },
-        {
-          "type": "update_statement_missing_argument",
-          "named": true
-        },
-        {
-          "type": "where_statement",
-          "named": true
-        },
-        {
-          "type": "where_statement_missing_argument",
+          "type": "where_part",
           "named": true
         }
       ]
@@ -622,12 +270,7 @@
     "fields": {}
   },
   {
-    "type": "unknown_name",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "update_statement",
+    "type": "update_part",
     "named": true,
     "fields": {},
     "children": {
@@ -635,39 +278,15 @@
       "required": true,
       "types": [
         {
-          "type": "expected_table_name",
-          "named": true
-        },
-        {
           "type": "table_name",
           "named": true
         },
         {
-          "type": "update_token",
+          "type": "update",
           "named": true
         }
       ]
     }
-  },
-  {
-    "type": "update_statement_missing_argument",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "update_token",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "update_token",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "value",
@@ -705,7 +324,7 @@
     }
   },
   {
-    "type": "where_statement",
+    "type": "where_part",
     "named": true,
     "fields": {},
     "children": {
@@ -713,39 +332,15 @@
       "required": true,
       "types": [
         {
-          "type": "expected_value",
-          "named": true
-        },
-        {
           "type": "value",
           "named": true
         },
         {
-          "type": "where_token",
+          "type": "where",
           "named": true
         }
       ]
     }
-  },
-  {
-    "type": "where_statement_missing_argument",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "where_token",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "where_token",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "*",
@@ -772,44 +367,16 @@
     "named": false
   },
   {
-    "type": "CONTENT",
-    "named": false
-  },
-  {
-    "type": "CREATE",
-    "named": false
-  },
-  {
-    "type": "DELETE",
-    "named": false
-  },
-  {
-    "type": "FROM",
-    "named": false
-  },
-  {
-    "type": "SELECT",
-    "named": false
-  },
-  {
-    "type": "UPDATE",
-    "named": false
-  },
-  {
-    "type": "WHERE",
-    "named": false
-  },
-  {
     "type": "content",
-    "named": false
+    "named": true
   },
   {
     "type": "create",
-    "named": false
+    "named": true
   },
   {
     "type": "delete",
-    "named": false
+    "named": true
   },
   {
     "type": "false",
@@ -817,7 +384,7 @@
   },
   {
     "type": "from",
-    "named": false
+    "named": true
   },
   {
     "type": "null",
@@ -829,7 +396,7 @@
   },
   {
     "type": "select",
-    "named": false
+    "named": true
   },
   {
     "type": "string",
@@ -841,10 +408,10 @@
   },
   {
     "type": "update",
-    "named": false
+    "named": true
   },
   {
     "type": "where",
-    "named": false
+    "named": true
   }
 ]
