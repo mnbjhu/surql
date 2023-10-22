@@ -1,7 +1,7 @@
 package bindings
 
 //#include "tree_sitter/parser.h"
-//TSLanguage *tree_sitter_mylang();
+//TSLanguage *tree_sitter_mynulang();
 import "C"
 
 import (
@@ -11,6 +11,6 @@ import (
 )
 
 func GetLanguage() *sitter.Language {
-	ptr := unsafe.Pointer(C.tree_sitter_mylang())
+	ptr := unsafe.Pointer(C.tree_sitter_mynulang())
 	return sitter.NewLanguage(ptr)
 }

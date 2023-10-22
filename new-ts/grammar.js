@@ -3,7 +3,9 @@ module.exports = grammar({
   rules: {
     source_file: ($) => seq(repeat($.statement)),
 
-    statement: ($) => seq($._statement_start, repeat($._statement_param), ";"),
+    semi: ($) => prec(10, ";"),
+    statement: ($) =>
+      seq($._statement_start, repeat($._statement_param), $.semi),
 
     _statement_start: ($) =>
       choice(
@@ -42,7 +44,6 @@ module.exports = grammar({
         $.null,
         $.operation,
         $.column_name,
-        $.table_name,
         $.array,
         $.object,
       ),
@@ -68,7 +69,7 @@ module.exports = grammar({
 
     object_entry: ($) => seq($.string, ":", $.value),
     object: ($) =>
-      seq("{", repeat(seq($.object_entry, ","), optional($.object_entry)), "}"),
+      seq("{", repeat(seq($.object_entry, ",")), optional($.object_entry), "}"),
 
     _simple_name: ($) => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
@@ -86,14 +87,14 @@ module.exports = grammar({
 
     function_declaration: ($) =>
       seq(
-        define,
-        function_token,
+        $.define,
+        $.function_token,
         $.function_name,
-        $.function_args,
+        $.function_args_def,
         $.function_body,
       ),
 
-    function_args: ($) => seq("(", repeat(seq($.function_arg, ",")), ")"),
+    function_args_def: ($) => seq("(", repeat(seq($.function_arg, ",")), ")"),
     function_arg: ($) => seq($._simple_name, optional(seq(":", $.type))),
     function_body: ($) => seq("{", repeat($.statement), "}"),
 
@@ -113,10 +114,14 @@ module.exports = grammar({
       ),
 
     _definition: ($) => choice($.field_definition, $.table_definition),
-    definition: ($) => seq($._definition, ";"),
+    definition: ($) => seq($._definition, $.semi),
 
     type_token: ($) => "type",
     table: ($) => "table",
     on_table: ($) => choice("on", "on table"),
+
+    function_call: ($) => seq($.function_name, $.function_args),
+    function_args: ($) =>
+      seq("(", seq(repeat(seq($.value, ","))), optional($.value), ")"),
   },
 });

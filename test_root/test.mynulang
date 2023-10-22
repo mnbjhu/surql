@@ -1,0 +1,33 @@
+select some, other
+from thing
+where
+  some = "updated"
+    and 
+  other.thing < 21 = 2;
+
+select "hello", other
+from thing 
+where 2 * 21 / 7 + 2 - 2;
+
+create thing 
+content {
+  "some": "thing",
+  "other": 1 
+};
+
+update thing content {
+  "some": "updated",
+  "other": 2
+};
+
+define table thing;
+
+define field some on thing type string;
+
+define field other on thing type number;
+
+define field some on thing type string;
+select some from thing;
+
+select 
+
