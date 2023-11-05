@@ -9,9 +9,11 @@ import (
 )
 
 func UpdateDiagnostics(context *glsp.Context, uri protocol.DocumentUri) {
+	errs := HandleUnknownStatements()
+	errs = append(errs, HandleStatementErrors(context)...)
 	context.Notify("textDocument/publishDiagnostics", protocol.PublishDiagnosticsParams{
 		URI:         uri,
-		Diagnostics: HandleUnknownStatements(),
+		Diagnostics: errs,
 	})
 }
 
