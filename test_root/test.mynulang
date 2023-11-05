@@ -26,8 +26,11 @@ define field some on thing type string;
 
 define field other on thing type number;
 
-define field some on thing type string;
 select some from thing;
 
-select 
+select "" from thing;
 
+select some from thing;
+select some, other from thing;
+select some 
+asd

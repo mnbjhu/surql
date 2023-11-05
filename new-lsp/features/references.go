@@ -84,10 +84,74 @@ func TextDocumentReferences(context *glsp.Context, params *protocol.ReferencePar
 	return nil, nil
 }
 
-func FindNodeByPosition(position protocol.Position) *sitter.Node {
-	point := sitter.Point{
-		Row:    uint32(position.Line),
-		Column: uint32(position.Character),
+func FindTableDefinitions() []*sitter.Node {
+	query, err := sitter.NewQuery([]byte("(define_table_statement (table_name) @table_name)"), bindings.GetLanguage())
+	if err != nil {
+		panic(err)
 	}
-	return data.Tree.RootNode().NamedDescendantForPointRange(point, point)
+	cursor := sitter.NewQueryCursor()
+	cursor.Exec(query, data.Tree.RootNode())
+	found := []*sitter.Node{}
+	for {
+		m, ok := cursor.NextMatch()
+		if !ok {
+			break
+		}
+		for _, c := range m.Captures {
+			found = append(found, c.Node)
+		}
+	}
+	return found
+}
+
+func FindFieldDefinitions() []*sitter.Node {
+	query, err := sitter.NewQuery([]byte("(define_field_statement (field_name) @field_name)"), bindings.GetLanguage())
+	if err != nil {
+		panic(err)
+	}
+	cursor := sitter.NewQueryCursor()
+	cursor.Exec(query, data.Tree.RootNode())
+	found := []*sitter.Node{}
+	for {
+		m, ok := cursor.NextMatch()
+		if !ok {
+			break
+		}
+		for _, c := range m.Captures {
+			found = append(found, c.Node)
+		}
+	}
+	return found
+}
+
+func FindNodeByPosition(position protocol.Position) *sitter.Node {
+	point := position.IndexIn(data.Text)
+	current := data.Tree.RootNode()
+	for {
+		if current.ChildCount() == 0 {
+			break
+		}
+		var i uint32 = 0
+		for {
+			if i == current.ChildCount() {
+				break
+			}
+			child := current.Child(int(i))
+			start := ParsePosition(child.StartPoint()).IndexIn(data.Text)
+			end := ParsePosition(child.EndPoint()).IndexIn(data.Text)
+			if start <= point && point <= end {
+				current = child
+				break
+			}
+			i++
+		}
+	}
+	return current
+}
+
+func ParsePosition(point sitter.Point) protocol.Position {
+	return protocol.Position{
+		Line:      point.Row,
+		Character: point.Column,
+	}
 }

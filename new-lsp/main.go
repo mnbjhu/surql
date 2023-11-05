@@ -68,7 +68,7 @@ func initialize(context *glsp.Context, params *protocol.InitializeParams) (any, 
 	capabilities.DeclarationProvider = true
 	workDoneProgress := true
 	capabilities.CompletionProvider = &protocol.CompletionOptions{
-		TriggerCharacters: []string{" ", "\n"},
+		TriggerCharacters: []string{"[a-zA-Z]"},
 		ResolveProvider:   &resolveProvider,
 		WorkDoneProgressOptions: protocol.WorkDoneProgressOptions{
 			WorkDoneProgress: &workDoneProgress,
