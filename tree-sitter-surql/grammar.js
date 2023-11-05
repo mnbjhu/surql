@@ -19,7 +19,9 @@ module.exports = grammar({
         $.content_part,
       ),
 
-    identifier: ($) => /[a-zA-Z_][a-zA-Z0-9_]*/,
+    _simple_name: ($) => /[a-zA-Z_][a-zA-Z0-9_]*/,
+    identifier: ($) => $._simple_name,
+    function_name: ($) => seq($._simple_name, repeat(seq("::", $._simple_name))),
     variable: ($) => seq("$", $.identifier),
 
     string: ($) => /"[^"]*"/,
@@ -34,7 +36,7 @@ module.exports = grammar({
 
     varargs: ($) => seq($._value, repeat(seq(",", $._value))),
 
-    function_call: ($) => seq($.identifier, "(", optional($.varargs), ")"),
+    function_call: ($) => seq($.function_name, "(", optional($.varargs), ")"),
 
     _value: ($) =>
       choice(
@@ -135,7 +137,7 @@ module.exports = grammar({
     on_part: ($) => seq($.on_token, optional($.identifier)),
     type_part: ($) => seq($.type_token, optional($.type_name)),
 
-    function_name_part: ($) => seq($.function_token, optional($.identifier)),
+    function_name_part: ($) => seq($.function_token, optional($.function_name)),
 
     function_param: ($) => seq($.variable, ":", $.type_name),
 

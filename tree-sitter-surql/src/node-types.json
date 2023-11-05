@@ -814,7 +814,7 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "function_name",
           "named": true
         },
         {
@@ -852,6 +852,11 @@
     }
   },
   {
+    "type": "function_name",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "function_name_part",
     "named": true,
     "fields": {},
@@ -860,11 +865,11 @@
       "required": true,
       "types": [
         {
-          "type": "function_token",
+          "type": "function_name",
           "named": true
         },
         {
-          "type": "identifier",
+          "type": "function_token",
           "named": true
         }
       ]
@@ -1101,6 +1106,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "identifier",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "inequality_operation",
@@ -2323,6 +2333,10 @@
     "named": false
   },
   {
+    "type": "::",
+    "named": false
+  },
+  {
     "type": ";",
     "named": false
   },
@@ -2407,10 +2421,6 @@
     "named": true
   },
   {
-    "type": "identifier",
-    "named": true
-  },
-  {
     "type": "integer",
     "named": true
   },
@@ -2436,11 +2446,11 @@
   },
   {
     "type": "string",
-    "named": false
+    "named": true
   },
   {
     "type": "string",
-    "named": true
+    "named": false
   },
   {
     "type": "table_token",

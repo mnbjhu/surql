@@ -1,4 +1,4 @@
-select some, other
+select some, thing
 from thing
 where
   some = "updated"
@@ -23,12 +23,12 @@ define field list on thing type array<string>;
 
 select some from thing;
 
-select "" from thing;
+select "", 123 from thing;
 
 select some from thing;
 select some, other from thing;
 
-define function add($a: float, $b: float) {
+define function fn::add($a: float, $b: float) {
   select "" from thing;
 }
 
@@ -38,6 +38,8 @@ create thing content {
 };
 
 define function add($a: float, $b: float): float {
-  select "";
-  select add();
+  select "" from other;
+  select some from thing;
 };
+
+delete some where true;
