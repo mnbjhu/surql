@@ -7,6 +7,7 @@ import (
 	"github.com/mnbjhu/surql-lsp/features/diagnostics"
 	"github.com/tliron/glsp"
 	protocol "github.com/tliron/glsp/protocol_3_16"
+	"golang.org/x/exp/slices"
 )
 
 func Completion(context *glsp.Context, params *protocol.CompletionParams) (any, error) {
@@ -22,7 +23,67 @@ func Completion(context *glsp.Context, params *protocol.CompletionParams) (any, 
 		Type:    protocol.MessageTypeWarning,
 		Message: message,
 	})
-	if current_node.Type() == "table_name" && current_node.Parent().Type() != "define_table_statement" {
+
+	if current_node.Type() == "ERROR" && current_node.Parent().Type() == "ERROR" {
+		kind := protocol.CompletionItemKindKeyword
+		return []protocol.CompletionItem{
+			{
+				Label: "select",
+				Kind:  &kind,
+			},
+			{
+				Label: "create",
+				Kind:  &kind,
+			},
+			{
+				Label: "delete",
+				Kind:  &kind,
+			},
+			{
+				Label: "update",
+				Kind:  &kind,
+			},
+			{
+				Label: "define",
+				Kind:  &kind,
+			},
+		}, nil
+	}
+
+	if current_node.Type() == "ERROR" && current_node.Parent().Type() == "ERROR" {
+		if current_node.PrevSibling().Type() == "select_part" {
+			kind := protocol.CompletionItemKindKeyword
+			return []protocol.CompletionItem{
+				{
+					Label: "from",
+					Kind:  &kind,
+				},
+			}, nil
+		}
+
+		if current_node.PrevSibling().Type() == "from_part" {
+			kind := protocol.CompletionItemKindKeyword
+			return []protocol.CompletionItem{
+				{
+					Label: "where",
+					Kind:  &kind,
+				},
+			}, nil
+		}
+
+		if current_node.PrevSibling().Type() == "create_part" || current_node.PrevSibling().Type() == "update_part" {
+			kind := protocol.CompletionItemKindKeyword
+			return []protocol.CompletionItem{
+				{
+					Label: "content",
+					Kind:  &kind,
+				},
+			}, nil
+		}
+
+	}
+
+	if current_node.Type() == "identifier" && slices.Contains([]string{"create_part", "update_part", "delete_part", "from_part"}, current_node.Parent().Type()) {
 		items := []protocol.CompletionItem{}
 		kind := protocol.CompletionItemKindField
 		for _, def := range FindTableDefinitions() {

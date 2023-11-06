@@ -30,6 +30,7 @@ require (
 	github.com/vmihailenco/msgpack/v5 v5.3.5 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
 	golang.org/x/crypto v0.8.0 // indirect
-	golang.org/x/sys v0.7.0 // indirect
+	golang.org/x/exp v0.0.0-20231006140011-7918f672742d
+	golang.org/x/sys v0.13.0 // indirect
 	golang.org/x/term v0.7.0 // indirect
 )

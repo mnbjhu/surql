@@ -23,7 +23,7 @@ define field list on thing type array<string>;
 
 select some from thing;
 
-select "", 123 from thing;
+select "", "" from thing;
 
 select some from thing;
 select some, other from thing;
@@ -42,4 +42,4 @@ define function add($a: float, $b: float): float {
   select some from thing;
 };
 
-delete some where true;
+select some from thing;

@@ -42,10 +42,6 @@ func HandleStatementErrors(context *glsp.Context) []protocol.Diagnostic {
 func HandleSelectStatement(selectNode *sitter.Node, context *glsp.Context) []protocol.Diagnostic {
 	err := protocol.DiagnosticSeverityError
 	found := []protocol.Diagnostic{}
-	context.Notify("window/logMessage", protocol.LogMessageParams{
-		Type:    protocol.MessageTypeWarning,
-		Message: fmt.Sprintf("Handling select statement for %s, Had %v children, second child: %v", selectNode.String(), selectNode.ChildCount(), selectNode.Child(1).Type()),
-	})
 	if selectNode.Child(0).ChildCount() == 1 {
 		found = append(found, protocol.Diagnostic{
 			Message:  "Expected: 'Projections'",
@@ -122,6 +118,19 @@ func HandleDeleteErrors(deleteNode *sitter.Node, context *glsp.Context) []protoc
 		})
 		return found
 	}
+
+	for i := 0; i < int(deleteNode.ChildCount()); i++ {
+		if deleteNode.Child(i).Type() == "ERROR" {
+			found = append(found, protocol.Diagnostic{
+				Message:  "Unexpected part in delete statement",
+				Severity: &err,
+				Range: protocol.Range{
+					Start: ParsePosition(deleteNode.Child(i).StartPoint()),
+					End:   ParsePosition(deleteNode.Child(i).EndPoint()),
+				},
+			})
+		}
+	}
 	if deleteNode.Child(1) == nil || deleteNode.Child(1).Type() != "where_part" {
 		found = append(found, protocol.Diagnostic{
 			Message:  "This will delete all elements in the table, are you sure you want to do this?",
@@ -133,5 +142,6 @@ func HandleDeleteErrors(deleteNode *sitter.Node, context *glsp.Context) []protoc
 		})
 		return found
 	}
+
 	return found
 }

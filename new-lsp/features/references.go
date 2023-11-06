@@ -50,8 +50,8 @@ func TextDocumentReferences(context *glsp.Context, params *protocol.ReferencePar
 	data.Logger.Printf("References: %v", params)
 	node := FindNodeByPosition(params.Position)
 	data.Logger.Printf("References: %v", node)
-	if node.Type() == "table_name" {
-		query, err := sitter.NewQuery([]byte("(table_name) @table_name"), bindings.GetLanguage())
+	if node.Type() == "identifier" && (node.Parent().Type() == "from_part" || node.Parent().Type() == "create_part" || node.Parent().Type() == "delete_part" || node.Parent().Type() == "update_part") {
+		query, err := sitter.NewQuery([]byte("(definition_statement (table_part (identifier) @table_name))"), bindings.GetLanguage())
 		if err != nil {
 			panic(err)
 		}
@@ -85,7 +85,7 @@ func TextDocumentReferences(context *glsp.Context, params *protocol.ReferencePar
 }
 
 func FindTableDefinitions() []*sitter.Node {
-	query, err := sitter.NewQuery([]byte("(define_table_statement (table_name) @table_name)"), bindings.GetLanguage())
+	query, err := sitter.NewQuery([]byte("(definition_statement (table_part (identifier) @table_name))"), bindings.GetLanguage())
 	if err != nil {
 		panic(err)
 	}
