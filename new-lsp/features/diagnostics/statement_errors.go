@@ -72,8 +72,8 @@ func HandleSelectStatement(selectNode *sitter.Node, context *glsp.Context) []pro
 			Message:  "Expected: 'from'",
 			Severity: &err,
 			Range: protocol.Range{
-				Start: ParsePosition(selectNode.Child(1).StartPoint()),
-				End:   ParsePosition(selectNode.Child(1).EndPoint()),
+				Start: ParsePosition(selectNode.EndPoint()),
+				End:   ParsePosition(selectNode.EndPoint()),
 			},
 		})
 		return found
@@ -95,8 +95,8 @@ func HandleSelectStatement(selectNode *sitter.Node, context *glsp.Context) []pro
 			Message:  "Expected: table name",
 			Severity: &err,
 			Range: protocol.Range{
-				Start: ParsePosition(from.Child(0).StartPoint()),
-				End:   ParsePosition(from.Child(0).EndPoint()),
+				Start: ParsePosition(from.EndPoint()),
+				End:   ParsePosition(from.EndPoint()),
 			},
 		})
 	}

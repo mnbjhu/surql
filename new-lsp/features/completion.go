@@ -5,6 +5,7 @@ import (
 
 	"github.com/mnbjhu/surql-lsp/data"
 	"github.com/mnbjhu/surql-lsp/features/diagnostics"
+	sitter "github.com/smacker/go-tree-sitter"
 	"github.com/tliron/glsp"
 	protocol "github.com/tliron/glsp/protocol_3_16"
 	"golang.org/x/exp/slices"
@@ -136,4 +137,49 @@ func Completion(context *glsp.Context, params *protocol.CompletionParams) (any, 
 	}
 
 	return nil, nil
+}
+
+func IsCrudStatement(node *sitter.Node) bool {
+	if node.Type() == "crud_statement" {
+		return true
+	}
+	if node.ChildCount() == 0 {
+		return false
+	}
+	if node.Type() == "ERROR" {
+		first := node.Child(0).Type()
+		if slices.Contains([]string{"create_part", "update_part", "delete_part", "from_part"}, first) {
+			return true
+		}
+	}
+	return false
+}
+
+func GetSuggestions(node *sitter.Node) []protocol.CompletionItem {
+	if IsCrudStatement(node) {
+	}
+	return []protocol.CompletionItem{}
+}
+
+func ShouldExpectTableName(node *sitter.Node) bool {
+	if node.Type() == "identifier" && node.Parent().Type() == "from_part" {
+		return true
+	}
+	return false
+}
+
+func GetType(node *sitter.Node) any {
+	if slices.Contains([]string{"integer", "string", "boolean", "float"}, node.Type()) {
+		return node.Type()
+	}
+	if node.Type() == "array" {
+		if node.ChildCount() == 0 {
+			return "array<unknown>"
+		}
+
+		childType := GetType(node.Child(0))
+		for i := 0; i < int(node.ChildCount()); i++ {
+			childType := GetType(node.Child(i))
+		}
+	}
 }

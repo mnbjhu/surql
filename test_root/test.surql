@@ -2,7 +2,7 @@ select some, thing
 from thing
 where
   some = "updated"
-    and 
+    and
   other.thing < 21 = 4;
 
 select "hello", other
@@ -34,7 +34,7 @@ define function fn::add($a: float, $b: float) {
 
 create thing content {
   some: "new thing",
-  other: 1
+  other: [1, 2, 3]
 };
 
 define function add($a: float, $b: float): float {
@@ -42,4 +42,4 @@ define function add($a: float, $b: float): float {
   select some from thing;
 };
 
-select some from thing;
+

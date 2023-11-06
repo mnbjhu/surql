@@ -1,2 +1,6 @@
 ./new-lsp/surql-lsp
-
+./mynulang
+./new-ts
+./new-lsp/bindings/tree_sitter
+./new-lsp/bindings/parser.c
+./tree-sitter-surql/src/tree_sitter/parser.h

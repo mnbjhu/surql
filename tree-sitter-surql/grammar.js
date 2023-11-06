@@ -21,7 +21,8 @@ module.exports = grammar({
 
     _simple_name: ($) => /[a-zA-Z_][a-zA-Z0-9_]*/,
     identifier: ($) => $._simple_name,
-    function_name: ($) => seq($._simple_name, repeat(seq("::", $._simple_name))),
+    function_name: ($) =>
+      seq($._simple_name, repeat(seq("::", $._simple_name))),
     variable: ($) => seq("$", $.identifier),
 
     string: ($) => /"[^"]*"/,
@@ -150,7 +151,7 @@ module.exports = grammar({
 
     function_return_type_part: ($) => seq(":", $.type_name),
 
-    function_body_part: ($) => seq("{", repeat(seq($._statement)), "}"),
+    function_body_part: ($) => seq("{", repeat($._statement), "}"),
 
     function_definition_statement: ($) =>
       seq(
